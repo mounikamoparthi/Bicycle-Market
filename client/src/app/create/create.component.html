@@ -1,0 +1,37 @@
+<div class = "links">
+<a [routerLink] = "['/dashboard']"> Browse</a> | <a [routerLink]="['/create']">My Listings</a>|
+ <a [routerLink]="['/']">LogOff</a>
+<router-outlet></router-outlet>
+</div>
+<h3>Create Listing</h3>
+
+<form (submit) = "addBike(); bikeForm.reset()" #createBike = "ngForm">
+  <label>Image Upload (url): </label> <br>
+  <input type="text" class = "img" name="image" required [(ngModel)]='newBike.image' #image='ngModel'><br>
+  Title:<br>
+  <input type = "text" name = "title" [(ngModel)] = "newBike.title" #title = "ngModel" required minlength = '3'><br>
+  Description:<br>
+  <textarea rows = "3" cols = '40' name = 'description' [(ngModel)] = "newBike.description" #title = "ngModel" required minlength = '3'></textarea><br>
+  Price:<br>
+  <input type = "text" name = "price" [(ngModel)] = "newBike.price" #title = "ngModel" required><br>
+  Location:<br>
+  <input type = "text" name = "location" [(ngModel)] = "newBike.location" #title = "ngModel" required><br><br>
+  <input type = "submit" value = "Create" [(disabled)] = "!createBike.form.valid"><br>
+</form>
+
+<h3> Edit/Delete Listings </h3>
+<div class = "row bikes" style="outline:dotted grey 2px">
+<div class= "col-md-3 product" *ngFor= "let b of currentUserBikes; let idx = index">
+  <form (submit) = "updateBike(b)" #bikeForm = "ngForm">
+     <div class="col-sm-3">
+        Image:<br> <img [src]="b.image" alt="click to add photo (required)" (click)="editPhoto(idx)"><br>
+    </div>
+    Title: <br><input type = "text" name = "title" value = "{{ b.title}}" [(ngModel)] = "b.title" #title = "ngModel"><br>
+    Description:<br><textarea rows = '3' cols= '40' name = 'description' value='{{ b.description}}'  [(ngModel)] = "b.description" #description = "ngModel"> </textarea><br>
+    Price:<br><input type = "text" name = "price" value = "{{ b.price}}" [(ngModel)] = "b.price" #price = "ngModel"><br>
+    Location: <br><input type = "text" name = "location" value = "{{ b.location}}" [(ngModel)] = "b.location" #location = "ngModel"><br>
+   <input type = "submit" value = "Update">
+    <button (click)="deleteBike(b)">Delete</button>
+  </form>
+</div>
+

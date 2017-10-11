@@ -1,0 +1,96 @@
+<div class = "wrapper">
+  <h3>Bike of the Day!</h3>
+<div class="bike">
+  <div class="col-sm-3">
+    <img [src]="sample.image">
+  </div>
+  <div class = "inputwrap">
+    <h2>Title: {{sample.title}}</h2>
+    <p>Description:{{sample.description}}</p>
+  </div>
+  <div class = "inputwrap">
+      <h2>Price: ${{sample.price}}</h2>
+    <label>Location: {{sample.location}}</label>
+  </div>
+</div>
+
+<div class="login">
+  <h2> Log In </h2>
+  <form (submit)="validateLogin()" #loginForm="ngForm">
+    <div id="boxalign2" class="boxalign2">
+     <div class="inputwrap">
+      <label>*Email:</label>
+        <input class = "next" type="email" name="loginemail" [(ngModel)]="loginuser.email" required ><br><br>
+    </div>
+    <div class="inputwrap">
+      <label>*Password:</label>
+      <input class = "next" type="password" name="loginpassword" [(ngModel)]="loginuser.password" required ><br>
+    </div>
+    </div>
+    <div *ngIf="loginError"><p class="error">{{loginError}}</p></div>
+    <br>
+
+    <input type="submit" value="Log In" [(disabled)]="!loginForm.form.valid"><br>
+  </form>
+</div>
+
+<div class="register">
+  <h2> Register </h2>
+  <form (submit)="validateReg()" #regForm="ngForm">
+    <div *ngIf="regError"><p class="error">{{regError}}</p></div>
+    <div id="boxalign2" class="boxalign2">
+     <div class="inputwrap">
+     <label>*First Name:</label>
+        <input type="text" class = "next" name="fname" required [(ngModel)]="reguser.first_name" #fname="ngModel" >
+      </div>
+
+    <div class="col-sm-6 error" *ngIf='!fname.valid && (fname.dirty || fname.touched)'>First name is required</div>
+
+    <br>
+
+   <div class="inputwrap">
+     <label>*Last Name:</label>
+
+        <input type="text" class = "next" name="lname" required [(ngModel)]="reguser.last_name" #lname="ngModel" >
+
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-6 error" *ngIf='!lname.valid && (lname.dirty || lname.touched)'>Last name is required</div>
+
+    <br>
+
+   <div class="inputwrap">
+      <label>*Email:</label>
+        <input type="email" class = "next" name="remail" required pattern="^([A-Za-z0-9._\-]+)@([a-zA-Z0-9._\-]+)\.([a-zA-Z]+)$" [(ngModel)]="reguser.email" #remail="ngModel" >
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-6 error" *ngIf='!remail.valid && (remail.dirty || remail.touched)'>Email is not valid</div>
+
+    <br>
+
+    <div class="inputwrap">
+     <label>*Password:</label>
+
+        <input type="password" class = "next" name="rpassword" required [(ngModel)]="reguser.password" #rpassword="ngModel" minlength="8" validateEqual="confirmPassword" reverse="true">
+
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-6 error" *ngIf='!rpassword.valid && (rpassword.dirty || rpassword.touched)'>Must be at least 8 characters</div>
+
+    <br>
+
+    <div class="inputwrap">
+      <label>*Confirm Password:</label>
+        <input type="password" class = "next" name="confirmPassword" [(ngModel)]="reguser.confirmpassword" #confirmPassword="ngModel" validateEqual="rpassword" reverse="false" >
+    </div>
+    <div class="col-sm-4"></div>
+    <div class="col-sm-6 error" *ngIf='!confirmPassword.valid && (confirmPassword.dirty || confirmPassword.touched)'>Passwords do not match</div>
+
+    <br>
+    </div>
+
+    <input type="submit" value="Register" [(disabled)]="!regForm.form.valid" class="btn btn-primary">
+
+  </form>
+   </div>
+</div>

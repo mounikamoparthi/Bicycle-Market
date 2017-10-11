@@ -1,0 +1,22 @@
+<div class = "links">
+
+<a [routerLink] = "['/dashboard']"> Browse</a> | <a [routerLink]="['/create']">My Listings</a>|
+ <a [routerLink]="['/']">LogOff</a>
+<router-outlet></router-outlet>
+</div>
+
+<div class="search"><label>Search</label> <input type="text" id="search" name="searchBar" class="searchBar" [(ngModel)]="searchStr"></div>
+<div class = "row bikes">
+<div class= "col-md-3 product" *ngFor = "let b of list_bikes| filter:searchStr">
+    Image:<br> <img [src]="b.image" ><br>
+  <p>Title: {{b.title}}</p>
+  <p>Description: {{b.description}}</p>
+  <p>Price: ${{b.price }}</p>
+  <p>Location: {{b.location}} </p>
+  <div *ngIf= "b.user_id==current_user._id; else elseBlock">
+   <button (click)="DelBike(b)">Delete</button></div>
+   <ng-template #elseBlock>
+   <button (click)="contactUser(b)">Contact</button>
+</ng-template>
+</div>
+</div>
